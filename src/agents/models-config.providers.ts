@@ -51,6 +51,17 @@ const MOONSHOT_DEFAULT_COST = {
   cacheRead: 0,
   cacheWrite: 0,
 };
+
+// Amazon Nova 1P API (direct API, not Bedrock)
+const AMAZON_NOVA_BASE_URL = "https://api.nova.amazon.com/v1";
+const AMAZON_NOVA_DEFAULT_COST = {
+  input: 0,
+  output: 0,
+  cacheRead: 0,
+  cacheWrite: 0,
+};
+// Required header to disable compression (Nova API requirement)
+const AMAZON_NOVA_HEADERS = { "Accept-Encoding": "identity" } as const;
 const KIMI_CODE_BASE_URL = "https://api.kimi.com/coding/v1";
 const KIMI_CODE_MODEL_ID = "kimi-for-coding";
 const KIMI_CODE_CONTEXT_WINDOW = 262144;
@@ -297,6 +308,35 @@ function buildMoonshotProvider(): ProviderConfig {
   };
 }
 
+function buildAmazonNovaProvider(): ProviderConfig {
+  return {
+    baseUrl: AMAZON_NOVA_BASE_URL,
+    api: "openai-completions",
+    models: [
+      {
+        id: "nova-2-lite-v1",
+        name: "Amazon Nova 2 Lite",
+        reasoning: false,
+        input: ["text", "image"],
+        cost: AMAZON_NOVA_DEFAULT_COST,
+        contextWindow: 300000,
+        maxTokens: 8192,
+        headers: AMAZON_NOVA_HEADERS,
+      },
+      {
+        id: "nova-2-pro-v1",
+        name: "Amazon Nova 2 Pro",
+        reasoning: false,
+        input: ["text", "image"],
+        cost: AMAZON_NOVA_DEFAULT_COST,
+        contextWindow: 300000,
+        maxTokens: 8192,
+        headers: AMAZON_NOVA_HEADERS,
+      },
+    ],
+  };
+}
+
 function buildKimiCodeProvider(): ProviderConfig {
   return {
     baseUrl: KIMI_CODE_BASE_URL,
@@ -408,6 +448,13 @@ export async function resolveImplicitProviders(params: {
     resolveApiKeyFromProfiles({ provider: "moonshot", store: authStore });
   if (moonshotKey) {
     providers.moonshot = { ...buildMoonshotProvider(), apiKey: moonshotKey };
+  }
+
+  const amazonNovaKey =
+    resolveEnvApiKeyVarName("amazon-nova") ??
+    resolveApiKeyFromProfiles({ provider: "amazon-nova", store: authStore });
+  if (amazonNovaKey) {
+    providers["amazon-nova"] = { ...buildAmazonNovaProvider(), apiKey: amazonNovaKey };
   }
 
   const kimiCodeKey =
