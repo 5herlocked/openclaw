@@ -56,6 +56,7 @@ openclaw agent --model amazon-nova/nova-2-lite-v1
         baseUrl: "https://api.nova.amazon.com/v1",
         apiKey: "${NOVA_API_KEY}",
         api: "openai-completions",
+        headers: { "Accept-Encoding": "identity" },
         models: [
           {
             id: "nova-2-lite-v1",
@@ -64,8 +65,7 @@ openclaw agent --model amazon-nova/nova-2-lite-v1
             input: ["text", "image"],
             cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
             contextWindow: 300000,
-            maxTokens: 8192,
-            headers: { "Accept-Encoding": "identity" }
+            maxTokens: 8192
           },
           {
             id: "nova-2-pro-v1",
@@ -74,8 +74,7 @@ openclaw agent --model amazon-nova/nova-2-lite-v1
             input: ["text", "image"],
             cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
             contextWindow: 300000,
-            maxTokens: 8192,
-            headers: { "Accept-Encoding": "identity" }
+            maxTokens: 8192
           }
         ]
       }

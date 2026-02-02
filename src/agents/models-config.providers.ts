@@ -5,8 +5,8 @@ import {
   resolveCopilotApiToken,
 } from "../providers/github-copilot-token.js";
 import { ensureAuthProfileStore, listProfilesForProvider } from "./auth-profiles.js";
-import { resolveAwsSdkEnvVarName, resolveEnvApiKey } from "./model-auth.js";
 import { discoverBedrockModels } from "./bedrock-discovery.js";
+import { resolveAwsSdkEnvVarName, resolveEnvApiKey } from "./model-auth.js";
 import {
   buildSyntheticModelDefinition,
   SYNTHETIC_BASE_URL,
@@ -313,6 +313,7 @@ export function buildAmazonNovaProvider(): ProviderConfig {
   return {
     baseUrl: AMAZON_NOVA_BASE_URL,
     api: "openai-completions",
+    headers: AMAZON_NOVA_HEADERS,
     models: [
       {
         id: "nova-2-lite-v1",
@@ -322,7 +323,6 @@ export function buildAmazonNovaProvider(): ProviderConfig {
         cost: AMAZON_NOVA_DEFAULT_COST,
         contextWindow: 300000,
         maxTokens: 8192,
-        headers: AMAZON_NOVA_HEADERS,
       },
       {
         id: "nova-2-pro-v1",
@@ -332,7 +332,6 @@ export function buildAmazonNovaProvider(): ProviderConfig {
         cost: AMAZON_NOVA_DEFAULT_COST,
         contextWindow: 300000,
         maxTokens: 8192,
-        headers: AMAZON_NOVA_HEADERS,
       },
     ],
   };
