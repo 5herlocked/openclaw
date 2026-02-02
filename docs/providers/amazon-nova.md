@@ -13,8 +13,8 @@ AWS Bedrock. This is a separate integration from the Bedrock provider.
 
 Available models:
 
-- `nova-2-lite-v1` - 300k context, multimodal (text + image)
-- `nova-2-pro-v1` - 300k context, multimodal (text + image)
+- `nova-2-lite-v1` - 1M context, 65k output, multimodal (text + image)
+- `nova-2-pro-v1` - 1M context, 65k output, multimodal (text + image)
 
 ## Setup
 
@@ -65,8 +65,8 @@ openclaw agent --model amazon-nova/nova-2-lite-v1
             reasoning: false,
             input: ["text", "image"],
             cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
-            contextWindow: 300000,
-            maxTokens: 8192,
+            contextWindow: 1000000,
+            maxTokens: 65536,
           },
           {
             id: "nova-2-pro-v1",
@@ -74,8 +74,8 @@ openclaw agent --model amazon-nova/nova-2-lite-v1
             reasoning: false,
             input: ["text", "image"],
             cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
-            contextWindow: 300000,
-            maxTokens: 8192,
+            contextWindow: 1000000,
+            maxTokens: 65536,
           },
         ],
       },

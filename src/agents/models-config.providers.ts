@@ -346,8 +346,8 @@ export function buildAmazonNovaProvider(): ProviderConfig {
         reasoning: false,
         input: ["text", "image"],
         cost: AMAZON_NOVA_DEFAULT_COST,
-        contextWindow: 300000,
-        maxTokens: 8192,
+        contextWindow: 1000000,
+        maxTokens: 65536,
       },
       {
         id: "nova-2-pro-v1",
@@ -355,8 +355,8 @@ export function buildAmazonNovaProvider(): ProviderConfig {
         reasoning: false,
         input: ["text", "image"],
         cost: AMAZON_NOVA_DEFAULT_COST,
-        contextWindow: 300000,
-        maxTokens: 8192,
+        contextWindow: 1000000,
+        maxTokens: 65536,
       },
     ],
   };
