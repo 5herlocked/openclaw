@@ -87,8 +87,8 @@ const AUTH_CHOICE_GROUP_DEFS: {
   },
   {
     value: "amazon-nova",
-    label: "Amazon Nova",
-    hint: "API key (1P API)",
+    label: "Nova",
+    hint: "nova.amazon.com",
     choices: ["amazon-nova-api-key"],
   },
   {
@@ -179,7 +179,7 @@ export function buildAuthChoiceOptions(params: {
   });
   options.push({
     value: "amazon-nova-api-key",
-    label: "Amazon Nova API key",
+    label: "Nova API key",
   });
   options.push({ value: "zai-api-key", label: "Z.AI (GLM 4.7) API key" });
   options.push({

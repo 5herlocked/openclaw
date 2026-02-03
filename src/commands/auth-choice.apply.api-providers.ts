@@ -658,13 +658,7 @@ export async function applyAuthChoiceApiProviders(
     }
 
     if (!hasCredential) {
-      await params.prompter.note(
-        [
-          "Amazon Nova 1P API provides direct access to Nova models.",
-          "This is separate from AWS Bedrock integration.",
-        ].join("\n"),
-        "Amazon Nova",
-      );
+      await params.prompter.note(["Get your API key at nova.amazon.com"].join("\n"), "Amazon Nova");
     }
 
     const envKey = resolveEnvApiKey("amazon-nova");
